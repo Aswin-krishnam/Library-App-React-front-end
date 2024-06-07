@@ -1,8 +1,10 @@
 import React from 'react'
+import Navbar from './Navbar'
 
 const AddBooks = () => {
   return (
     <div>
+        <Navbar/>
         <center>
             <h3>Add Books</h3>
         </center>

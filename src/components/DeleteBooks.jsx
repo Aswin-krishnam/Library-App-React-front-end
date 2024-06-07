@@ -1,12 +1,12 @@
 import React from 'react'
 import Navbar from './Navbar'
 
-const SearchBooks = () => {
+const DeleteBooks = () => {
   return (
     <div>
         <Navbar/>
-        <center>
-            <h3>Search Books</h3>
+<center>
+            <h3>Delete Books</h3>
         </center>
         <div className="container">
             <div className="row">
@@ -21,7 +21,7 @@ const SearchBooks = () => {
                         </div>
                         <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
 
-                            <button className="btn btn-success">Search</button>
+                            <button className="btn btn-danger">Delete</button>
 
                         </div>
                     </div>
@@ -34,4 +34,4 @@ const SearchBooks = () => {
   )
 }
 
-export default SearchBooks
+export default DeleteBooks
