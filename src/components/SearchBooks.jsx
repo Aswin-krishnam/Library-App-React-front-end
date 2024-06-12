@@ -1,20 +1,30 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
+import axios from 'axios'
 
 const SearchBooks = () => {
     const [data,setData]=useState(
         {
             "title":"",
-  
-
         }
     )
+
+    const [result,setResult]=useState([])
     const inputHandler=(event)=>{
         setData({...data,[event.target.name]:event.target.value})
     }
 
     const readValue=()=>{
         console.log(data)
+        axios.post("http://localhost:8080/search",data).then(
+            (response)=>{
+                setResult(response.data)
+            }
+        ).catch(
+            (error)=>{
+                console.log(error)
+            }
+        )
                 }
   return (
     <div>
@@ -40,6 +50,37 @@ const SearchBooks = () => {
                         </div>
                     </div>
 
+                </div>
+            </div>
+            <div className="row">
+                <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                <table className="table table-dark table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">SL No</th>
+                                    <th scope="col">Book Title</th>
+                                    <th scope="col">Author </th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Published Year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {
+                            
+                                result.map(
+                                (value, index) => {
+                                    return <tr>
+                                    <th scope="row">{index+1}</th>
+                                    <td>{value.title}</td>
+                                    <td>{value.author}</td>
+                                    <td>{value.price}</td>
+                                    <td>{value.pyear}</td>
+                                    
+                                </tr>
+                               }
+                            )}
+                            </tbody>
+                        </table>
                 </div>
             </div>
         </div>
