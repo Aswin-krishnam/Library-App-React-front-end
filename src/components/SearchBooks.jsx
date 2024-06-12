@@ -5,7 +5,7 @@ import axios from 'axios'
 const SearchBooks = () => {
     const [data,setData]=useState(
         {
-            "title":"",
+            "title":""
         }
     )
 
@@ -14,6 +14,20 @@ const SearchBooks = () => {
         setData({...data,[event.target.name]:event.target.value})
     }
 
+    const deleteBook=(id)=>{
+        const input= { "_id":id }
+        axios.post("http://localhost:8080/delete",input).then(
+            (response)=>{
+                console.log(response.data)
+                if (response.data.status=="success") {
+                    alert("Successfully Deleted")
+                } else {
+                    alert("Error in deletion")
+                }
+            }
+
+        )
+    }
     const readValue=()=>{
         console.log(data)
         axios.post("http://localhost:8080/search",data).then(
@@ -62,6 +76,7 @@ const SearchBooks = () => {
                                     <th scope="col">Author </th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Published Year</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,6 +90,7 @@ const SearchBooks = () => {
                                     <td>{value.author}</td>
                                     <td>{value.price}</td>
                                     <td>{value.pyear}</td>
+                                    <td><button className="btn btn-danger" onClick={()=>{deleteBook(value._id)}}>Delete</button></td>
                                     
                                 </tr>
                                }
