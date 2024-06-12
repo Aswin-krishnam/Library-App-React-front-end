@@ -1,10 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar'
+import axios from 'axios'
 
 const Viewall = () => {
+
+    const [data, changeData] = useState([])
+
+    const fetchData = () => {
+        axios.get("http://localhost:8080/viewall").then(
+            (response) => {
+                changeData(response.data)
+            }
+        ).catch(
+            (error) => {
+                console.log(error.message)
+                alert(error.message)
+            }
+        ).finally()
+    }
+
+    useEffect(() => { fetchData() }, [])
     return (
         <div>
-            <Navbar/>
+            <Navbar />
             <center>
                 <h3>View All Books</h3>
             </center>
@@ -23,77 +41,20 @@ const Viewall = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Harry Poter</td>
-                                    <td>JK Rowling</td>
-                                    <td>2000</td>
-                                    <td>1990</td>
+                            {
+                            // data.products.map(
+                                data.map(
+                                (value, index) => {
+                                    return <tr>
+                                    <th scope="row">{index+1}</th>
+                                    <td>{value.title}</td>
+                                    <td>{value.author}</td>
+                                    <td>{value.price}</td>
+                                    <td>{value.pyear}</td>
+                                    
                                 </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>9568465222</td>
-                                    <td>Thornton</td>
-                                    <td>@abc.com</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td >Larry</td>
-                                    <td>9532181252</td>
-                                    <td>John</td>
-                                    <td>Larry@twitter.com</td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>Otto</td>
-                                    <td>8515874253</td>
-                                    <td>Doe</td>
-                                    <td>otto@mdo.in</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>Jayadeep</td>
-                                    <td>7542168852</td>
-                                    <td>Joseph</td>
-                                    <td>jayadeep@adh.com</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">6</th>
-                                    <td>Bro</td>
-                                    <td>732655592</td>
-                                    <td>Otto</td>
-                                    <td>abc@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">7</th>
-                                    <td>Alex</td>
-                                    <td>715826595</td>
-                                    <td>Hosseph</td>
-                                    <td>alex@as.in</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">8</th>
-                                    <td>Don</td>
-                                    <td>7661615658</td>
-                                    <td>Romeo</td>
-                                    <td>Don@asd.co.in</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">9</th>
-                                    <td>Febin</td>
-                                    <td>5655952659</td>
-                                    <td>George</td>
-                                    <td>febin@mdo.com</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">10</th>
-                                    <td>Ebin</td>
-                                    <td>7356771682</td>
-                                    <td>Raj</td>
-                                    <td>ebin@gm.com</td>
-                                </tr>
+                               }
+                            )}
                             </tbody>
                         </table>
                     </div>
